@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using System.IO;
+using System.Linq;
+using TMPro;
 
 public class NoteSpawner : MonoBehaviour
 {
-    public float maxTime = 1;   //time before next spawn (probably for next lit up line)
     [SerializeField]
     private float timer = 0;
     public GameObject note;
-    public float x;
+    public float xPos;
 
-    //for varying text length?
-    public List<string> sentenceLengths { get; private set; } // Readonly list storing affected tiles    
-    // Start is called before the first frame update
+    public GameObject[] notes;
+
+    //for reading off text file
+    List<string> fileLines;
+    public int listIndex = 0;
+    public GameObject recallTextObject;
     void Start()
     {
         /*  //testing purposes
@@ -20,6 +26,9 @@ public class NoteSpawner : MonoBehaviour
         newNote.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0, 0);
         */
 
+        //reads text file from file path and puts each line into a list
+        string readFromFilePath = Application.streamingAssetsPath + "/Recall_Chat/" + "Chat" + ".txt";
+        fileLines = File.ReadAllLines(readFromFilePath).ToList();
     }
 
     // Update is called once per frame
@@ -27,11 +36,22 @@ public class NoteSpawner : MonoBehaviour
     {
         if (GameManager.Instance.hasStarted)
         {
-            if (timer > maxTime)
+            if (timer > GameManager.Instance.noteInterval)
             {
-                GameObject newNote = Instantiate(note);
-                newNote.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0, 0);
-                //newNote.transform.position = transform.position + new Vector3(-x, 0, 0);    //left justified for words
+                /* old code to test spawning in 4 different prefab
+                //int randomIndex = Random.Range(0, notes.Length);
+                //GameObject notePrefab = notes[randomIndex]; //make new object with random prefab 
+                //Instantiate(notePrefab);
+                */
+                
+                //create duplicate gameobject and sets text to what is in list
+                GameObject textObject = Instantiate(recallTextObject);
+                TextMeshPro textMeshProComponent = textObject.GetComponent<TextMeshPro>();
+                textMeshProComponent.SetText(fileLines[listIndex]);
+                
+                //moves text up 
+                textObject.transform.position = transform.position + new Vector3(xPos, 0, 0);
+                listIndex++;
                 timer = 0;
             }
 
