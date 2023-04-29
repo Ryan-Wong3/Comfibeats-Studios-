@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Activator
   - Hit
+  - Note
   layers:
   - Default
   - TransparentFX
