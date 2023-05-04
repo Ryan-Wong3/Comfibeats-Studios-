@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     public KeyCode keyToPress;
     public bool hasStarted;
 
+    public float bpm;
+    public float noteInterval;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,8 @@ public class GameManager : MonoBehaviour
         }
 
         hasStarted = false; //track gamestate
+
+        noteInterval = 60f / bpm;
     }
 
     // Update is called once per frame
