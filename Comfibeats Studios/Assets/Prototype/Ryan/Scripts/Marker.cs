@@ -8,16 +8,19 @@ using UnityEngine.UI;
 
 public class Marker : MonoBehaviour
 {
+    /*
     [SerializeField]
     private bool start = false;
 
     [SerializeField]
     private GameObject highlight;
     [SerializeField]
-    private Slider sliderLight;
+    private Slider slider;
 
     [SerializeField]
-    private float radius;
+    private GameObject block;
+
+
 
 
     // Start is called before the first frame update
@@ -30,14 +33,14 @@ public class Marker : MonoBehaviour
     void Update()
     {
         if (highlight != null && Input.GetKeyDown(KeyCode.Space)){
-            if (sliderLight != null)
+            if (slider != null)
             {
-                sliderLight.value += .01f;
+                slider.value += .01f;
             }
         }
         if(highlight != null && Input.GetKey(KeyCode.Space))
         {
-            sliderLight.value += .01f;
+            slider.value += .01f;
         }
         
     }
@@ -50,14 +53,10 @@ public class Marker : MonoBehaviour
             highlight = other.gameObject;
             if (highlight.GetComponent<Slider>())
             {
-                sliderLight = highlight.GetComponent<Slider>();
+                slider = highlight.GetComponent<Slider>();
             }
         }
     }
+    */
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
 }

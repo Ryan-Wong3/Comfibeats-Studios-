@@ -6,5 +6,7 @@ using System;
 public static class Actions 
 {
     //UI
-    public static Action ScoreUIUpdate;
+    public static Action ScoreUIUpdate, FlashNote;
+
+   
 }

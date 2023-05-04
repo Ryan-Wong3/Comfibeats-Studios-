@@ -7,6 +7,7 @@ TagManager:
   - Activator
   - Hit
   - Note
+  - Marker
   layers:
   - Default
   - TransparentFX
