@@ -12,7 +12,10 @@ public class Note : MonoBehaviour
     [SerializeField]
     private float noteTime;
     [SerializeField]
-    private float perfectTime;
+    private float perfectFrontTime;
+    [SerializeField]
+    private float perfectEndTime;
+
     [SerializeField]
     private float earlyTime;
     [SerializeField]
@@ -68,11 +71,11 @@ public class Note : MonoBehaviour
     {
         feedback = GameObject.FindObjectOfType<Feedback>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        slider.maxValue = noteTime;
-        
+        slider.maxValue = noteTime;   
     }
 
     // Update is called once per frame
@@ -101,21 +104,24 @@ public class Note : MonoBehaviour
             slider.value = sliderSpeed * Time.time;
         }
 
+        /*
         if(slider.value == noteTime)
         {
             Debug.Log("done");
             Debug.Log(timer);
         }
+        */
+
         //pressing too early 
         if (!start && Input.GetKey(KeyCode.Space) && spacebarHeld == false)
         {
             StartCoroutine(feedback.EarlyFeedback());
         }
-        else if(start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && tracker)
+        else if(start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && (timer <= perfectFrontTime) || start && spacebarHeld == false && (timer < noteTime) && (timer > perfectEndTime))
         {
             StartCoroutine(feedback.PerfectFeedback());
         }
-        else if (start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && seconds < 4)
+        else if (start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && seconds > 4)
         {
             StartCoroutine(feedback.LateFeedback());
         }
