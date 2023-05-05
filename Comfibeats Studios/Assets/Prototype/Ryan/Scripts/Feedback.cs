@@ -10,6 +10,10 @@ public class Feedback : MonoBehaviour
     [SerializeField]
     private TMP_Text feedbackText;
 
+    public void Start()
+    {
+        feedbackText.gameObject.SetActive(false);
+    }
 
     public IEnumerator PerfectFeedback()
     {

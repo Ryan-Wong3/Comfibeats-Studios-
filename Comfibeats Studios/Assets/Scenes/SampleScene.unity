@@ -818,7 +818,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -875,7 +875,7 @@ MonoBehaviour:
   flash: {fileID: 731331424}
   front: {fileID: 210971355}
   end: {fileID: 1633777188}
-  feedback: {fileID: 1582714595}
+  feedback: {fileID: 0}
 --- !u!1 &678322013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +1986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1582714592
 RectTransform:
   m_ObjectHideFlags: 0

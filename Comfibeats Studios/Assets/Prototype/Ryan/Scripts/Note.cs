@@ -64,11 +64,15 @@ public class Note : MonoBehaviour
     private float timer;
     private float seconds;
 
+    private void Awake()
+    {
+        feedback = GameObject.FindObjectOfType<Feedback>();
+    }
     // Start is called before the first frame update
     void Start()
     {
         slider.maxValue = noteTime;
-        feedback = FindObjectOfType<Feedback>();
+        
     }
 
     // Update is called once per frame
