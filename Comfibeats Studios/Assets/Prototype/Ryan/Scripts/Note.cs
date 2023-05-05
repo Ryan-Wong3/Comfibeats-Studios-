@@ -8,9 +8,22 @@ using UnityEngine.UI;
 
 public class Note : MonoBehaviour
 {
+    [Header("Timing")]
+    [SerializeField]
+    private float noteTime;
+    [SerializeField]
+    private float perfectTime;
+    [SerializeField]
+    private float earlyTime;
+    [SerializeField]
+    private float lateTime;
+
     [Header("Marker")]
     [SerializeField]
     private GameObject marker;
+    [SerializeField]
+    private GameObject tracker;
+
 
     [Header("Distance")]
     [SerializeField]
@@ -29,6 +42,8 @@ public class Note : MonoBehaviour
     [SerializeField]
     private Slider slider;
     [SerializeField]
+    private float sliderSpeed;
+    [SerializeField]
     private Image imageSlider;
 
     [Header("Flash")]
@@ -45,13 +60,15 @@ public class Note : MonoBehaviour
     [SerializeField]
     private Feedback feedback;
 
+
     private float timer;
     private float seconds;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        slider.maxValue = noteTime;
+        feedback = FindObjectOfType<Feedback>();
     }
 
     // Update is called once per frame
@@ -72,20 +89,25 @@ public class Note : MonoBehaviour
             timer += Time.deltaTime;
             seconds = timer % 60;
         }
-
+      
 
         //Enable slider to move when collided with marker
         if (start && Input.GetKey(KeyCode.Space))
         {
-            slider.value += .01f;
+            slider.value = sliderSpeed * Time.time;
         }
 
+        if(slider.value == noteTime)
+        {
+            Debug.Log("done");
+            Debug.Log(timer);
+        }
         //pressing too early 
         if (!start && Input.GetKey(KeyCode.Space) && spacebarHeld == false)
         {
             StartCoroutine(feedback.EarlyFeedback());
         }
-        else if(start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && seconds < 2)
+        else if(start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && tracker)
         {
             StartCoroutine(feedback.PerfectFeedback());
         }
@@ -101,11 +123,7 @@ public class Note : MonoBehaviour
             spacebarHeld = true;
         else
             spacebarHeld = false;
-
-        Debug.Log(spacebarHeld);
-       
-
-        
+  
 
     }
 
