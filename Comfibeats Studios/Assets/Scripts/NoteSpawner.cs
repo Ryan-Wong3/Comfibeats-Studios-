@@ -10,7 +10,6 @@ public class NoteSpawner : MonoBehaviour
 {
     [SerializeField]
     private float timer = 0;
-    public GameObject note;
     public float xPos;
 
     public GameObject[] notes;
@@ -46,12 +45,18 @@ public class NoteSpawner : MonoBehaviour
                 
                 //create duplicate gameobject and sets text to what is in list
                 GameObject textObject = Instantiate(recallTextObject);
-                TextMeshPro textMeshProComponent = textObject.GetComponent<TextMeshPro>();
+                //TextMeshPro textMeshProComponent = textObject.GetComponent<TextMeshPro>();
+                TextMeshProUGUI textMeshProComponent = textObject.transform.Find("Slider/Fill Area/Text").GetComponentInChildren<TextMeshProUGUI>();
                 textMeshProComponent.SetText(fileLines[listIndex]);
                 
-                //moves text up 
-                textObject.transform.position = transform.position + new Vector3(xPos, 0, 0);
-                listIndex++;
+                //spawns text at notespawner + offset
+                //textObject.transform.position = transform.position + new Vector3(xPos, 0, 0);
+
+                //repeat last line if at end of txt 
+                if (fileLines.Count - 1 > listIndex)
+                {
+                    listIndex++;
+                }
                 timer = 0;
             }
 
