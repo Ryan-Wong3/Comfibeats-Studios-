@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,9 @@ public class Note : MonoBehaviour
     private float earlyTime;
     [SerializeField]
     private float lateTime;
+    [SerializeField]
+    private float padding;
+
 
     [Header("Marker")]
     [SerializeField]
@@ -85,7 +89,7 @@ public class Note : MonoBehaviour
         distance = (marker.transform.position.y - transform.position.y);
 
         //Flashing 
-        if(distance < breakingDistance && flashed == false)
+        if (distance < breakingDistance && flashed == false)
         {
             //flash UI element
             StartCoroutine(Flash());
@@ -95,46 +99,52 @@ public class Note : MonoBehaviour
         {
             timer += Time.deltaTime;
             seconds = timer % 60;
-        }
-      
 
+            float xPos = tracker.transform.position.x + Time.deltaTime/1.5f;
+            tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
+
+
+        }
+
+        
         //Enable slider to move when collided with marker
         if (start && Input.GetKey(KeyCode.Space))
         {
-            slider.value = sliderSpeed * Time.time;
+            slider.value += (sliderSpeed * Time.deltaTime);
         }
 
-        /*
+        
         if(slider.value == noteTime)
         {
-            Debug.Log("done");
             Debug.Log(timer);
         }
-        */
 
+        //should be rewritten in future iteration (Short term solution)
         //pressing too early 
-        if (!start && Input.GetKey(KeyCode.Space) && spacebarHeld == false)
+        if (!start && Input.GetKey(KeyCode.Space) && spacebarHeld == false || start && Input.GetKeyUp(KeyCode.Space) && timer < perfectEndTime)
         {
             StartCoroutine(feedback.EarlyFeedback());
         }
-        else if(start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && (timer <= perfectFrontTime) || start && spacebarHeld == false && (timer < noteTime) && (timer > perfectEndTime))
+        else if (start && Input.GetKey(KeyCode.Space) && spacebarHeld && (timer <= perfectFrontTime) || start && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
         {
+            if ((timer < noteTime) && (timer > perfectEndTime))
+                start = false;
             StartCoroutine(feedback.PerfectFeedback());
         }
-        else if (start && Input.GetKey(KeyCode.Space) && spacebarHeld == false && seconds > 4)
+        //
+        else if (start && spacebarHeld == true && timer > noteTime + .1|| start && spacebarHeld == false && timer > noteTime + padding || start && spacebarHeld == false && Input.GetKey(KeyCode.Space) && timer > perfectFrontTime && timer < noteTime)
         {
             StartCoroutine(feedback.LateFeedback());
         }
-        
 
+        if (timer > noteTime + 0.5)
+            start = false;
 
         //Check if spacebar is held
         if (Input.GetKey(KeyCode.Space))
             spacebarHeld = true;
         else
             spacebarHeld = false;
-  
-
     }
 
 
