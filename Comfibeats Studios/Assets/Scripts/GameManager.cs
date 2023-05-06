@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         if (!hasStarted)
         {
-            if (Input.anyKeyDown)      //possible change to specific key or button to start game
+            if (Input.GetKeyDown(keyToPress))      //possible change to specific key or button to start game
             {
                 hasStarted = true;
             }
