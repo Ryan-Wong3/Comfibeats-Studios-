@@ -361,7 +361,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1696006932536351833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,9 +640,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteTime: 5
-  perfectTime: 0
+  perfectFrontTime: 0
+  perfectEndTime: 0
   earlyTime: 0
   lateTime: 0
+  padding: 0
   marker: {fileID: 0}
   tracker: {fileID: 0}
   distance: 0

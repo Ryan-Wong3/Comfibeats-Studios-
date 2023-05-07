@@ -74,6 +74,8 @@ public class Note : MonoBehaviour
     private void Awake()
     {
         feedback = GameObject.FindObjectOfType<Feedback>();
+        marker = GameObject.FindGameObjectWithTag("Marker");
+        tracker = GameObject.FindGameObjectWithTag("Tracker");
     }
 
     // Start is called before the first frame update

@@ -8,6 +8,7 @@ TagManager:
   - Hit
   - Note
   - Marker
+  - Tracker
   layers:
   - Default
   - TransparentFX
