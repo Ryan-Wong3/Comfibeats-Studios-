@@ -1559,7 +1559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -285.71, y: -174.95009}
+  m_AnchoredPosition: {x: -285.71, y: -169.41}
   m_SizeDelta: {x: 81.6362, y: 32.6625}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1382643251
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   flash: {fileID: 1932736327}
   front: {fileID: 386823906}
   end: {fileID: 1140637584}
-  feedback: {fileID: 0}
+  feedback: {fileID: 1582714595}
 --- !u!61 &1382643252
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1681,7 +1681,7 @@ GameObject:
   - component: {fileID: 1489221397}
   m_Layer: 0
   m_Name: Tracker
-  m_TagString: Untagged
+  m_TagString: Tracker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
