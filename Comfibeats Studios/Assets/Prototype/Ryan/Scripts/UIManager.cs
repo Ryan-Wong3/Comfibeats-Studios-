@@ -22,18 +22,6 @@ public class UIManager : MonoBehaviour
     private TMP_Text lateText;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
-    private void Update()
-    {
-        
-    }
-
     public void DisplayUIScore()
     {
         //Setactive the screen 
@@ -43,9 +31,6 @@ public class UIManager : MonoBehaviour
         perfectText.text = EndScreen.getPerfectScore().ToString();
 
         //set the rest of the player score reuslts to the end screen
-        
-        
-
     }
 
     private void UpdatePerfectScore()
