@@ -1,38 +1,67 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    /*
     [SerializeField]
     private Score playerScore;
+    */
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private GameObject endScreen;
+    [SerializeField]
+    private TMP_Text perfectText;
+    [SerializeField]
+    private TMP_Text earlyText;
+    [SerializeField]
+    private TMP_Text lateText;
+
+
+    public void DisplayUIScore()
     {
+        //Setactive the screen 
+        endScreen.gameObject.SetActive(true);
 
+        //setting text for perfect
+        perfectText.text = EndScreen.getPerfectScore().ToString();
+
+        //set the rest of the player score reuslts to the end screen
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdatePerfectScore()
     {
-
+        EndScreen.setPerfectScore(1);
     }
 
-    public void UpdateUIScore()
+    private void UpdateEarlyScore()
     {
-        //Update the UI to the new score 
+        EndScreen.setEarlyScore(1);
+    }
+
+    private void UpdateLateScore()
+    {
+        EndScreen.setLateScore(1);
     }
 
     private void OnEnable()
     {
-        Actions.ScoreUIUpdate += UpdateUIScore;
+        Actions.ScoreUIUpdate += DisplayUIScore;
+        Actions.PerfectUI += UpdatePerfectScore;
+        Actions.EarlyUI += UpdateEarlyScore;
+        Actions.LateUI += UpdateLateScore;
     }
 
     private void OnDisable()
     {
-        Actions.ScoreUIUpdate -= UpdateUIScore;
+        Actions.ScoreUIUpdate -= DisplayUIScore;
+        Actions.PerfectUI -= UpdatePerfectScore;
+        Actions.EarlyUI -= UpdateEarlyScore;
+        Actions.LateUI -= UpdateLateScore;
     }
 
 }

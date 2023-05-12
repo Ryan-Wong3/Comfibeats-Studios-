@@ -30,6 +30,7 @@ public class Note : MonoBehaviour
     private GameObject marker;
     [SerializeField]
     private GameObject tracker;
+    private Vector2 trackerStartPos;
 
 
     [Header("Distance")]
@@ -81,13 +82,23 @@ public class Note : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slider.maxValue = noteTime;   
+        slider.maxValue = noteTime;
+
+        //grab the starting position of the tracker 
+        trackerStartPos = tracker.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //distance check for flash
+        //to be deleted
+        if (start && Input.GetKey(KeyCode.D))
+        {
+            //call the function to callEndScreen
+            Actions.ScoreUIUpdate();
+        }
+
+            //distance check for flash
         distance = (marker.transform.position.y - transform.position.y);
 
         //Flashing 
@@ -102,9 +113,11 @@ public class Note : MonoBehaviour
             timer += Time.deltaTime;
             seconds = timer % 60;
 
+            //tracker
             float xPos = tracker.transform.position.x + Time.deltaTime/1.5f;
             tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
-
+            
+            //reset the tracker position when not colliding
 
         }
 
@@ -126,17 +139,20 @@ public class Note : MonoBehaviour
         if (!start && Input.GetKey(KeyCode.Space) && spacebarHeld == false || start && Input.GetKeyUp(KeyCode.Space) && timer < perfectEndTime)
         {
             StartCoroutine(feedback.EarlyFeedback());
+            EndScreen.setEarlyScore(1);
         }
         else if (start && Input.GetKey(KeyCode.Space) && spacebarHeld && (timer <= perfectFrontTime) || start && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
         {
             if ((timer < noteTime) && (timer > perfectEndTime))
                 start = false;
             StartCoroutine(feedback.PerfectFeedback());
+            EndScreen.setPerfectScore(1);
         }
         //
         else if (start && spacebarHeld == true && timer > noteTime + .1|| start && spacebarHeld == false && timer > noteTime + padding || start && spacebarHeld == false && Input.GetKey(KeyCode.Space) && timer > perfectFrontTime && timer < noteTime)
         {
             StartCoroutine(feedback.LateFeedback());
+            EndScreen.setLateScore(1);
         }
 
         if (timer > noteTime + 0.5)
@@ -147,6 +163,9 @@ public class Note : MonoBehaviour
             spacebarHeld = true;
         else
             spacebarHeld = false;
+
+
+       
     }
 
 
@@ -156,6 +175,15 @@ public class Note : MonoBehaviour
         {
             start = true;
             imageSlider.gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Marker")
+        {
+            start = false;
+            tracker.transform.position = trackerStartPos;
         }
     }
 
