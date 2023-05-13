@@ -86,6 +86,7 @@ public class Note : MonoBehaviour
 
         //grab the starting position of the tracker 
         trackerStartPos = tracker.transform.position;
+
     }
 
     // Update is called once per frame
@@ -114,8 +115,10 @@ public class Note : MonoBehaviour
             seconds = timer % 60;
 
             //tracker
+            /*
             float xPos = tracker.transform.position.x + Time.deltaTime/1.5f;
             tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
+            */  //moved to be able to move when slider is going to move
             
             //reset the tracker position when not colliding
 
@@ -126,6 +129,9 @@ public class Note : MonoBehaviour
         if (start && Input.GetKey(KeyCode.Space))
         {
             slider.value += (sliderSpeed * Time.deltaTime);
+            //tracker
+            float xPos = tracker.transform.position.x + Time.deltaTime*8;
+            tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
         }
 
         
@@ -184,6 +190,7 @@ public class Note : MonoBehaviour
         {
             start = false;
             tracker.transform.position = trackerStartPos;
+            Debug.Log(trackerStartPos);
         }
     }
 
