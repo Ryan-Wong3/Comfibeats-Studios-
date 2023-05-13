@@ -39,12 +39,12 @@ public class Note : MonoBehaviour
     [SerializeField]
     private float breakingDistance = 0;
 
-
     [Header("Boolean Statement (Remove)")]
     [SerializeField]
     private bool start = false;
     private bool flashed = false;
     private bool spacebarHeld = false;
+    private bool perfectHeld = false;
 
     [Header("Slider")]
     [SerializeField]
@@ -68,7 +68,6 @@ public class Note : MonoBehaviour
     [SerializeField]
     private Feedback feedback;
 
-
     private float timer;
     private float seconds;
 
@@ -91,14 +90,7 @@ public class Note : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //to be deleted
-        if (start && Input.GetKey(KeyCode.D))
-        {
-            //call the function to callEndScreen
-            Actions.ScoreUIUpdate();
-        }
-
-            //distance check for flash
+        //distance check for flash
         distance = (marker.transform.position.y - transform.position.y);
 
         //Flashing 
@@ -114,25 +106,31 @@ public class Note : MonoBehaviour
             seconds = timer % 60;
 
             //tracker
-            float xPos = tracker.transform.position.x + Time.deltaTime/1.5f;
+            float xPos = tracker.transform.position.x + Time.deltaTime / 1.5f;
             tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
-            
+
             //reset the tracker position when not colliding
 
         }
 
-        
+
         //Enable slider to move when collided with marker
         if (start && Input.GetKey(KeyCode.Space))
         {
             slider.value += (sliderSpeed * Time.deltaTime);
         }
 
-        
-        if(slider.value == noteTime)
+
+        if (slider.value == noteTime)
         {
             Debug.Log(timer);
         }
+
+        //Check if spacebar is held
+        if (Input.GetKey(KeyCode.Space))
+            spacebarHeld = true;
+        else
+            spacebarHeld = false;
 
         //should be rewritten in future iteration (Short term solution)
         //pressing too early 
@@ -141,33 +139,33 @@ public class Note : MonoBehaviour
             StartCoroutine(feedback.EarlyFeedback());
             EndScreen.setEarlyScore(1);
         }
-        else if (start && Input.GetKey(KeyCode.Space) && spacebarHeld && (timer <= perfectFrontTime) || start && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
+        //Perfect - pressing at start and letting go at the very end 
+        else if (start && Input.GetKeyDown(KeyCode.Space) && (timer <= perfectFrontTime) || start && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
         {
+            //end the note early if within the end range for perfect   
             if ((timer < noteTime) && (timer > perfectEndTime))
                 start = false;
+
             StartCoroutine(feedback.PerfectFeedback());
+
             EndScreen.setPerfectScore(1);
-        }
-        //
-        else if (start && spacebarHeld == true && timer > noteTime + .1|| start && spacebarHeld == false && timer > noteTime + padding || start && spacebarHeld == false && Input.GetKey(KeyCode.Space) && timer > perfectFrontTime && timer < noteTime)
+
+        }  
+        //Late - Timer is pass perfect front and perfect end || Timer is greater than note time
+        else if (start && Input.GetKeyDown(KeyCode.Space) && timer > perfectFrontTime && timer < perfectEndTime || start && Input.GetKeyDown(KeyCode.Space) && timer > noteTime)
         {
             StartCoroutine(feedback.LateFeedback());
             EndScreen.setLateScore(1);
         }
 
-        if (timer > noteTime + 0.5)
-            start = false;
-
-        //Check if spacebar is held
-        if (Input.GetKey(KeyCode.Space))
-            spacebarHeld = true;
-        else
-            spacebarHeld = false;
+            if (timer > noteTime + 0.5)
+                start = false;
 
 
-       
+
+      
+
     }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {

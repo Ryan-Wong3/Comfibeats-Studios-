@@ -21,16 +21,25 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text lateText;
 
+    private void Update()
+    {
+        //to be deleted
+        if (Input.GetKey(KeyCode.D))
+        {
+            //call the function to callEndScreen
+            Actions.ScoreUIUpdate();
+        }
 
+    }
     public void DisplayUIScore()
     {
         //Setactive the screen 
         endScreen.gameObject.SetActive(true);
 
         //setting text for perfect
-        perfectText.text = EndScreen.getPerfectScore().ToString();
-
-        //set the rest of the player score reuslts to the end screen
+        perfectText.text = "Perfect Score: " + EndScreen.getPerfectScore().ToString();
+        earlyText.text = "Early Score: " + EndScreen.getEarlyScore().ToString();
+        lateText.text = "Late Score: " + EndScreen.getLateScore();
     }
 
     private void UpdatePerfectScore()
