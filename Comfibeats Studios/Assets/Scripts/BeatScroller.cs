@@ -7,8 +7,6 @@ public class BeatScroller : MonoBehaviour
     //possible change distancebetweennotes if bpm low and want more text on screen
     public float distanceBetweenNotes;
 
-    public bool hasStarted;
-
     [SerializeField]
     private float timer = 0;
     // Start is called before the first frame update

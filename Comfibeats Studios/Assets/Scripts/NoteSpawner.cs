@@ -18,6 +18,8 @@ public class NoteSpawner : MonoBehaviour
     List<string> fileLines;
     public int listIndex = 0;
     public GameObject recallTextObject;
+
+
     void Start()
     {
         /*  //testing purposes
@@ -42,11 +44,11 @@ public class NoteSpawner : MonoBehaviour
                 //GameObject notePrefab = notes[randomIndex]; //make new object with random prefab 
                 //Instantiate(notePrefab);
                 */
-                
+
                 //create duplicate gameobject and sets text to what is in list
                 GameObject textObject = Instantiate(recallTextObject);
                 //TextMeshPro textMeshProComponent = textObject.GetComponent<TextMeshPro>();
-                TextMeshProUGUI textMeshProComponent = textObject.transform.Find("Slider/Fill Area/Text").GetComponentInChildren<TextMeshProUGUI>();
+                TextMeshProUGUI textMeshProComponent = textObject.transform.Find("Note/Fill Area/Note Text").GetComponentInChildren<TextMeshProUGUI>();
                 textMeshProComponent.SetText(fileLines[listIndex]);
                 
                 //spawns text at notespawner + offset
