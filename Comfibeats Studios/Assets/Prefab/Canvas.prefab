@@ -361,7 +361,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1696006932536351833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,15 +647,12 @@ MonoBehaviour:
   padding: 0
   marker: {fileID: 0}
   tracker: {fileID: 0}
-  distance: 0
   breakingDistance: 2.5
-  start: 0
   slider: {fileID: 1696006933140498604}
   sliderSpeed: 0.99
   imageSlider: {fileID: 1696006931949954067}
+  sliderBackground: {fileID: 0}
   flash: {fileID: 1696006933248518671}
-  front: {fileID: 1696006932829354932}
-  end: {fileID: 1696006932060890955}
   feedback: {fileID: 0}
 --- !u!114 &1696006933140498601
 MonoBehaviour:

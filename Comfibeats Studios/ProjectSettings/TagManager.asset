@@ -9,6 +9,7 @@ TagManager:
   - Note
   - Marker
   - Tracker
+  - Early
   layers:
   - Default
   - TransparentFX
