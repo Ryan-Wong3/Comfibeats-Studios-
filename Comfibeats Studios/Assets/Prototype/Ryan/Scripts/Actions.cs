@@ -6,7 +6,8 @@ using System;
 public static class Actions 
 {
     //UI
-    public static Action ScoreUIUpdate, PerfectUI, EarlyUI, LateUI;
+    public static Action DisplayEndScreen, PerfectUI, EarlyUI, LateUI, MissUI;
+    public static Action<int> ScoreUpdate, ScoreUIUpdate;
     public static Action<Coroutine> feedbackUI;
    
 }

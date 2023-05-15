@@ -12,8 +12,6 @@ public class Feedback : MonoBehaviour
 
     public IEnumerator PerfectFeedback()
     {
-        //Debug.Log("Perfect Feedback");
-        //turn on perfect text
         feedbackText.text = "Perfect";
         yield return new WaitForSeconds(1.5f);
         feedbackText.text = "";
@@ -21,8 +19,6 @@ public class Feedback : MonoBehaviour
 
     public IEnumerator EarlyFeedback() 
     {
-        //Debug.Log("Early");
-        //turn on perfect text
         feedbackText.text = "Early";
         yield return new WaitForSeconds(1.5f);
         feedbackText.text = "";
@@ -30,9 +26,14 @@ public class Feedback : MonoBehaviour
 
     public IEnumerator LateFeedback()
     {
-        //Debug.Log("Late");
-        //turn on perfect text
         feedbackText.text = "Late";
+        yield return new WaitForSeconds(1.5f);
+        feedbackText.text = "";
+    }
+
+    public IEnumerator MissFeedback()
+    {
+        feedbackText.text = "Miss";
         yield return new WaitForSeconds(1.5f);
         feedbackText.text = "";
     }

@@ -17,6 +17,17 @@ public class Note : MonoBehaviour
     [SerializeField]
     private float perfectEndTime;
 
+    [Header("Note Score")]
+    [SerializeField]
+    private int perfectScore = 0;
+    [SerializeField]
+    private int earlyScore = 0;
+    [SerializeField]
+    private int lateScore = 0;
+    [SerializeField]
+    private int missScore = 0;
+
+
     [Header("Marker")]
     //Marker is the red background
     [SerializeField]
@@ -35,6 +46,7 @@ public class Note : MonoBehaviour
     private bool startNote = false;
     private bool flashed = false;
     private bool earlyCheck = false;
+    private bool missCheck = false;
 
     [Header("Slider")]
     [SerializeField]
@@ -87,7 +99,7 @@ public class Note : MonoBehaviour
 
         //If note has started
         if (startNote)
-        {            
+        {
             timer += Time.deltaTime;
 
             /*
@@ -121,10 +133,12 @@ public class Note : MonoBehaviour
         {
             StartCoroutine(feedback.EarlyFeedback());
             EndScreen.setEarlyScore(1);
+            Actions.ScoreUpdate(earlyScore);
         }
         //Perfect - pressing at start and letting go at the very end 
         else if (startNote && Input.GetKeyDown(KeyCode.Space) && (timer <= perfectFrontTime) || startNote && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
         {
+            missCheck = true;
             //end the note early if within the end range for perfect   
             if ((timer < noteTime) && (timer > perfectEndTime))
                 startNote = false;
@@ -132,17 +146,29 @@ public class Note : MonoBehaviour
             StartCoroutine(feedback.PerfectFeedback());
 
             EndScreen.setPerfectScore(1);
+            Actions.ScoreUpdate(perfectScore);
 
-        }  
+        }
         //Late - Timer is pass perfect front and perfect end || Timer is greater than note time
-        else if (startNote && Input.GetKeyDown(KeyCode.Space) && timer > perfectFrontTime && timer < perfectEndTime || startNote && Input.GetKey(KeyCode.Space) && timer > noteTime  )
+        else if (startNote && Input.GetKeyDown(KeyCode.Space) && timer > perfectFrontTime && timer < perfectEndTime || startNote && Input.GetKey(KeyCode.Space) && timer > noteTime  || missCheck && timer >= noteTime && startNote)
         {
+            missCheck = true;
             StartCoroutine(feedback.LateFeedback());
             EndScreen.setLateScore(1);
+            Actions.ScoreUpdate(lateScore);
+        }
+        //Miss note - player didn't press spacebar at all during note time
+        else if(!missCheck && timer > noteTime && startNote)
+        {
+            StartCoroutine(feedback.MissFeedback());
+
+            //Sets score for end screen: Increments 
+            EndScreen.setMissScore(1);
+            Actions.ScoreUpdate(missScore);
         }
 
         //If timer is greater than noteTime then the current note is set to false
-        if (timer > noteTime)
+        if (timer > noteTime + 0.2)
             startNote = false;
     }
 

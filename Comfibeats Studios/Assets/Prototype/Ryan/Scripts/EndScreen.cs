@@ -11,7 +11,11 @@ public static class EndScreen
     private static int early;
     [SerializeField]
     private static int late;
+    [SerializeField]
+    private static int miss;
+    
 
+    //sets the score for the endscreen
     public static void setPerfectScore(int i)
     {
         perfect += i;
@@ -25,6 +29,11 @@ public static class EndScreen
     public static void setLateScore(int i)
     {
         late += i;
+    }
+
+    public static void setMissScore(int i)
+    {
+        miss += i;
     }
 
     public static int getPerfectScore()
@@ -42,4 +51,16 @@ public static class EndScreen
         return late;
     }
 
+    public static int getMissScore()
+    {
+        return miss;
+    }
+
+    /*
+    public static string getEndMessage()
+    {
+        if()
+        return;
+    }
+    */
 }

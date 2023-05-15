@@ -4,14 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class UIManager : MonoBehaviour
 {
-    /*
+    [Header("Score UI")]
     [SerializeField]
-    private Score playerScore;
-    */
+    private Slider scoreSlider;
 
+    [Header("Endscreen")]
     [SerializeField]
     private GameObject endScreen;
     [SerializeField]
@@ -20,6 +19,10 @@ public class UIManager : MonoBehaviour
     private TMP_Text earlyText;
     [SerializeField]
     private TMP_Text lateText;
+    [SerializeField]
+    private TMP_Text missText;
+    [SerializeField]
+    private string SceneName;
 
     private void Update()
     {
@@ -27,20 +30,28 @@ public class UIManager : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             //call the function to callEndScreen
-            Actions.ScoreUIUpdate();
+            Actions.DisplayEndScreen();
         }
 
     }
-    public void DisplayUIScore()
+    
+    public void UpdateScoreUI(int i)
+    {//get score and update the score slider
+        scoreSlider.value = i;
+    }
+
+    public void DisplayEndScreen()
     {
         //Setactive the screen 
         endScreen.gameObject.SetActive(true);
 
         //setting text for perfect
-        perfectText.text = "Perfect Score: " + EndScreen.getPerfectScore().ToString();
-        earlyText.text = "Early Score: " + EndScreen.getEarlyScore().ToString();
-        lateText.text = "Late Score: " + EndScreen.getLateScore();
+        perfectText.text = "Perfect: " + EndScreen.getPerfectScore().ToString();
+        earlyText.text = "Early: " + EndScreen.getEarlyScore().ToString();
+        lateText.text = "Late: " + EndScreen.getLateScore();
+        missText.text = "Miss: " + EndScreen.getMissScore();
     }
+    
 
     private void UpdatePerfectScore()
     {
@@ -57,20 +68,29 @@ public class UIManager : MonoBehaviour
         EndScreen.setLateScore(1);
     }
 
+    private void UpdateMissScore()
+    {
+        EndScreen.setMissScore(1);
+    }
+
     private void OnEnable()
     {
-        Actions.ScoreUIUpdate += DisplayUIScore;
+        Actions.ScoreUIUpdate += UpdateScoreUI;
+        Actions.DisplayEndScreen += DisplayEndScreen;
         Actions.PerfectUI += UpdatePerfectScore;
         Actions.EarlyUI += UpdateEarlyScore;
         Actions.LateUI += UpdateLateScore;
+        Actions.MissUI += UpdateMissScore;
     }
 
     private void OnDisable()
     {
-        Actions.ScoreUIUpdate -= DisplayUIScore;
+        Actions.ScoreUIUpdate -= UpdateScoreUI;
+        Actions.DisplayEndScreen -= DisplayEndScreen;
         Actions.PerfectUI -= UpdatePerfectScore;
         Actions.EarlyUI -= UpdateEarlyScore;
         Actions.LateUI -= UpdateLateScore;
+        Actions.MissUI -= UpdateMissScore;
     }
 
 }
