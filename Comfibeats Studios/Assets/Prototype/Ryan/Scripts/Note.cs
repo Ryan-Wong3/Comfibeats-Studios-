@@ -105,7 +105,7 @@ public class Note : MonoBehaviour
         {
             slider.value += (sliderSpeed * Time.deltaTime);
             //tracker
-            float xPos = tracker.transform.position.x + Time.deltaTime * 8;
+            float xPos = tracker.transform.position.x + Time.deltaTime * 12;
             tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
         }
 
