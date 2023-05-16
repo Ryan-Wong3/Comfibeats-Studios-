@@ -151,15 +151,22 @@ public class Note : MonoBehaviour
             Actions.ScoreUpdate(perfectScore);
 
         }
-        //Late - Timer is pass perfect front and perfect end || Timer is greater than note time
+        //Late - Timer is pass perfect front and perfect end || Timer is greater than note time                                                                                         
         else if (startNote && Input.GetKeyDown(KeyCode.Space) && timer > perfectFrontTime && timer < perfectEndTime || startNote && Input.GetKey(KeyCode.Space) && timer > noteTime  || missCheck && timer >= noteTime && startNote)
         {
             missCheck = true;
             StartCoroutine(feedback.LateFeedback());
             EndScreen.setLateScore(1);
             Actions.ScoreUpdate(lateScore);
+
+           //quick fix
+            if (startNote && Input.GetKey(KeyCode.Space) && timer > noteTime)
+            {
+                startNote = false;
+            }
         }
         //Miss note - player didn't press spacebar at all during note time
+        //- In future, miss should probably occur more often. 
         else if(!missCheck && timer > noteTime && startNote)
         {
             StartCoroutine(feedback.MissFeedback());
@@ -167,6 +174,7 @@ public class Note : MonoBehaviour
             //Sets score for end screen: Increments 
             EndScreen.setMissScore(1);
             Actions.ScoreUpdate(missScore);
+            startNote = false;
         }
 
         //If timer is greater than noteTime then the current note is set to false
