@@ -1,20 +1,75 @@
-Hello everyone!
-I love you
-You all rock
-Im happy
-I need to ride my motorcycle
-I'll ride after this tutorial
-I hope this tutorial hleps you
+Periodic Table:
+Elements organized by properties.
+Each has a unique symbol.
+Periods: Rows represent shells.
+Groups: Columns with similarities.
 
-Maybe we'll put a space in here 
-same chat
-same chat
-same chat
-same chat
-same chat
-same chat
+Atomic Structure:
+Protons: Positive in nucleus.
+Neutrons: Neutral in nucleus.
+Electrons: Orbit nucleus.
+Atomic number: Protons count.
 
-same chat
-same chat
-same chat
-same chat
+Valence Electrons:
+Outermost energy level.
+Determine reactivity.
+Same group: Same count.
+
+Chemical Bonding:
+Ionic Bond: Electron transfer.
+Covalent Bond: Electron sharing.
+Metallic Bond: Electron sea.
+
+Stoichiometry:
+Mole Concept: Avogadro's number.
+Molar Mass: Grams per mole.
+Stoichiometric Calcs: 
+Relate moles, mass.
+Balanced Equations: Equal atoms.
+
+Limiting Reactant:
+Determines max product.
+Fully consumed.
+Excess reactants remain.
+
+
+Methodology: 
+1. Draw a line 
+2. at the bottom of paper 
+3. Using food coloring,
+mark a spot 
+4. Pour 20mL 28% 
+isopropyl alcohol 
+5. Dip paper into beaker 
+6. Wait for 10 minutes 
+7. Remove chromatography strip 
+8. Lie sample next to ruler
+9. Measure distance 
+solvent reached 
+& distance food coloring reached 
+10. Repeats steps 3 - 7 with:
+3:1 isopropyl alcohol to water
+1:1 isopropyl alcohol to water
+1:3 isopropyl alcohol to water
+0:1 isopropyl alcohol to water 
+
+11. 20 mL of 10% 
+ammonia into a beaker 
+12. Dip paper til marked line 
+into beaker 
+13. Wait for 10 minutes 
+14. Remove chromatography strip 
+15, Lie sample next to ruler
+16. Measure distance 
+solvent reached  
+& distance food coloring reached 
+
+Repeat steps 9 - 13 with:
+3:1 ammonia to water ratio
+1:1 ammonia to water ratio
+1:3 ammonia to water ratio
+0:1 ammonia to water ratio
+
+17. Repeat both trials for 
+a second-time 
+

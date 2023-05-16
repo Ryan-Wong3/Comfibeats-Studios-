@@ -5,14 +5,9 @@ using UnityEngine.Audio;
 
 public class Song : MonoBehaviour
 {
-    public AudioSource song;
     public float timer;
     bool songStarted = false;
 
-    private void Start()
-    {
-        song.playOnAwake = false;
-    }
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +15,6 @@ public class Song : MonoBehaviour
 
         if (GameManager.Instance.hasStarted)
         {
-            song.Play();
             songStarted = true;
         }
 
@@ -28,10 +22,11 @@ public class Song : MonoBehaviour
             timer += Time.deltaTime;
 
 
-        if (timer > song.clip.length)
+        if (timer > GameManager.Instance.songLength)
         {
-            Debug.Log("Working");
+            Debug.Log("SONG ENDED");
             Actions.DisplayEndScreen();
+            GameManager.Instance.hasStarted = false;
         }
     }
 }

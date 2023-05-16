@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     //Set key to press
     public KeyCode keyToPress;
-    public bool hasStarted;
+    public bool hasStarted = false;
 
     public float bpm;
     [Header("for calculation purpose do not touch")]
@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
 
     //for music 
     public AudioSource audioSource;
+    public float songLength;
 
     public int flashCounter = 0;
-    public int restCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -33,24 +33,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        hasStarted = false; //track gamestate
+        hasStarted = true; //track gamestate
 
         noteInterval = 60f / bpm;
         
         audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!hasStarted)
-        {
-            if (Input.GetKeyDown(keyToPress))      //possible change to specific key or button to start game
-            {
-                hasStarted = true;
-                audioSource.Play();
-            }
-        }
+        songLength = audioSource.clip.length;
+        audioSource.Play();
     }
 
 }

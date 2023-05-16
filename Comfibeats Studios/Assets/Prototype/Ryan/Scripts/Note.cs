@@ -35,7 +35,7 @@ public class Note : MonoBehaviour
     //tracker is the moving icon above the note 
     [SerializeField]
     private GameObject tracker;
-    private Transform trackerStartPos;
+    private Vector2 trackerStartPos;
 
     [Header("Distance")]
     private float distance = 0;
@@ -70,6 +70,8 @@ public class Note : MonoBehaviour
     private float timer;
     private float timeDifference = 0;
 
+    private bool canInteract = false;
+
     private void Awake()
     {
         feedback = GameObject.FindObjectOfType<Feedback>();
@@ -83,7 +85,7 @@ public class Note : MonoBehaviour
         slider.maxValue = noteTime;
 
         //grab the starting position of the tracker 
-        trackerStartPos.transform.position = tracker.transform.position;
+        trackerStartPos = tracker.transform.position;
     }
 
     // Update is called once per frame
@@ -97,92 +99,113 @@ public class Note : MonoBehaviour
         {
             //flash UI element
             StartCoroutine(Flash());
-        }
-
-        //If note has started
-        if (startNote)
-        {
-            timer += Time.deltaTime;
-
-            //tracker
-            timeDifference = timer - timeDifference;
-            float xPos = (tracker.transform.position.x + timeDifference);
-            tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
-            timeDifference = timer;
-        }
-
-
-        //Enable slider to move when collided with marker
-        if (startNote && Input.GetKey(KeyCode.Space))
-        {
-            slider.value += (sliderSpeed * Time.deltaTime);
-        }
-
-        //Debug - Delete or comment out when note is ready 
-        if (slider.value == noteTime)
-        {
-            Debug.Log(timer);
-        }
-
-        //should be rewritten in future iteration (Short term solution)
-        //Early - If note hasn't started and spacebar is press || note has started and spacebar is let go before perfectEndTime 
-        if (!startNote && earlyCheck && Input.GetKeyDown(KeyCode.Space) || startNote && Input.GetKeyUp(KeyCode.Space) && timer < perfectEndTime)
-        {
-            StartCoroutine(feedback.EarlyFeedback());
-            EndScreen.setEarlyScore(1);
-            Actions.ScoreUpdate(earlyScore);
-        }
-        //Perfect - pressing at start and letting go at the very end 
-        else if (startNote && Input.GetKeyDown(KeyCode.Space) && (timer <= perfectFrontTime) || startNote && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
-        {
-            missCheck = true;
-            //end the note early if within the end range for perfect   
-            if ((timer < noteTime) && (timer > perfectEndTime))
+            canInteract = true;
+            /*
+            if(NoteSpawner.Instance.timer > GameManager.Instance.noteInterval && distance > 1.5)
             {
+                GameManager.Instance.flashCounter++;
+                canInteract = false;
+                
+                if(GameManager.Instance.flashCounter == 3)
+                {
+                    canInteract = true;
+                    StartCoroutine(Flash());
+                    GameManager.Instance.flashCounter = 0;
+                }
+                
+            }
+            */
+
+        }
+
+        if (canInteract)
+        {
+            //If note has started
+            if (startNote)
+            {
+                timer += Time.deltaTime;
+
+                //tracker
+                timeDifference = timer - timeDifference;
+                float xPos = (tracker.transform.position.x + timeDifference);
+                tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
+                timeDifference = timer;
+
+            }
+
+
+            //Enable slider to move when collided with marker
+            if (startNote && Input.GetKey(KeyCode.Space))
+            {
+                slider.value += (sliderSpeed * Time.deltaTime);
+            }
+
+            //Debug - Delete or comment out when note is ready 
+            if (slider.value == noteTime)
+            {
+                Debug.Log(timer);
+            }
+
+            //should be rewritten in future iteration (Short term solution)
+            //Early - If note hasn't started and spacebar is press || note has started and spacebar is let go before perfectEndTime 
+            if (!startNote && earlyCheck && Input.GetKeyDown(KeyCode.Space) || startNote && Input.GetKeyUp(KeyCode.Space) && timer < perfectEndTime)
+            {
+                StartCoroutine(feedback.EarlyFeedback());
+                EndScreen.setEarlyScore(1);
+                Actions.ScoreUpdate(earlyScore);
+            }
+            //Perfect - pressing at start and letting go at the very end 
+            else if (startNote && Input.GetKeyDown(KeyCode.Space) && (timer <= perfectFrontTime) || startNote && Input.GetKeyUp(KeyCode.Space) && (timer < noteTime) && (timer > perfectEndTime))
+            {
+                missCheck = true;
+                //end the note early if within the end range for perfect   
+                if ((timer < noteTime) && (timer > perfectEndTime))
+                {
+                    startNote = false;
+                    isFinished = true;
+                }
+
+
+                StartCoroutine(feedback.PerfectFeedback());
+
+                EndScreen.setPerfectScore(1);
+                Actions.ScoreUpdate(perfectScore);
+
+            }
+            //Late - Timer is pass perfect front and perfect end || Timer is greater than note time                                                                                         
+            else if (startNote && Input.GetKeyDown(KeyCode.Space) && timer > perfectFrontTime && timer < perfectEndTime || startNote && Input.GetKey(KeyCode.Space) && timer > noteTime || missCheck && timer >= noteTime && startNote)
+            {
+                missCheck = true;
+                StartCoroutine(feedback.LateFeedback());
+                EndScreen.setLateScore(1);
+                Actions.ScoreUpdate(lateScore);
+
+                //quick fix
+                if (startNote && Input.GetKey(KeyCode.Space) && timer > noteTime)
+                {
+                    startNote = false;
+                    isFinished = true;
+                }
+            }
+            //Miss note - player didn't press spacebar at all during note time
+            //- In future, miss should probably occur more often. 
+            else if (!missCheck && timer > noteTime && startNote)
+            {
+                StartCoroutine(feedback.MissFeedback());
+
+                //Sets score for end screen: Increments 
+                EndScreen.setMissScore(1);
+                Actions.ScoreUpdate(missScore);
                 startNote = false;
                 isFinished = true;
             }
 
-
-            StartCoroutine(feedback.PerfectFeedback());
-
-            EndScreen.setPerfectScore(1);
-            Actions.ScoreUpdate(perfectScore);
-
-        }
-        //Late - Timer is pass perfect front and perfect end || Timer is greater than note time                                                                                         
-        else if (startNote && Input.GetKeyDown(KeyCode.Space) && timer > perfectFrontTime && timer < perfectEndTime || startNote && Input.GetKey(KeyCode.Space) && timer > noteTime || missCheck && timer >= noteTime && startNote)
-        {
-            missCheck = true;
-            StartCoroutine(feedback.LateFeedback());
-            EndScreen.setLateScore(1);
-            Actions.ScoreUpdate(lateScore);
-
-            //quick fix
-            if (startNote && Input.GetKey(KeyCode.Space) && timer > noteTime)
+            //If timer is greater than noteTime then the current note is set to false
+            if (timer > noteTime + 0.2)
             {
                 startNote = false;
                 isFinished = true;
             }
-        }
-        //Miss note - player didn't press spacebar at all during note time
-        //- In future, miss should probably occur more often. 
-        else if (!missCheck && timer > noteTime && startNote)
-        {
-            StartCoroutine(feedback.MissFeedback());
-
-            //Sets score for end screen: Increments 
-            EndScreen.setMissScore(1);
-            Actions.ScoreUpdate(missScore);
-            startNote = false;
-            isFinished = true;
-        }
-
-        //If timer is greater than noteTime then the current note is set to false
-        if (timer > noteTime + 0.2)
-        {
-            startNote = false;
-            isFinished = true;
         }
             
     }
@@ -206,7 +229,7 @@ public class Note : MonoBehaviour
         if(other.tag == "Marker")
         {
             startNote = false;
-            tracker.transform.position = trackerStartPos.position;
+            tracker.transform.position = trackerStartPos;
         }
     }
 
