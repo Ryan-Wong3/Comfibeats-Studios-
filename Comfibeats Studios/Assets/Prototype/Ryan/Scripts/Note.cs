@@ -47,6 +47,8 @@ public class Note : MonoBehaviour
     private bool flashed = false;
     private bool earlyCheck = false;
     private bool missCheck = false;
+    [SerializeField]
+    private bool twoNote = false;
 
     [Header("Slider")]
     [SerializeField]
@@ -102,10 +104,11 @@ public class Note : MonoBehaviour
         {
             timer += Time.deltaTime;
 
+            /*
             //tracker
             float xPos = tracker.transform.position.x + Time.deltaTime / 1.5f;
             tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
-
+            */
             //reset the tracker position when not colliding
 
         }
@@ -115,6 +118,9 @@ public class Note : MonoBehaviour
         if (startNote && Input.GetKey(KeyCode.Space))
         {
             slider.value += (sliderSpeed * Time.deltaTime);
+            //tracker
+            float xPos = tracker.transform.position.x + Time.deltaTime * 12;
+            tracker.transform.position = new Vector3(xPos, tracker.transform.position.y, 0);
         }
 
         //Debug - Delete or comment out when note is ready 

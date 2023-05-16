@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
     public bool hasStarted;
 
     public float bpm;
+    [Header("for calculation purpose do not touch")]
     public float noteInterval;
+
+    //for music 
+    public AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,8 @@ public class GameManager : MonoBehaviour
         hasStarted = false; //track gamestate
 
         noteInterval = 60f / bpm;
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,6 +45,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(keyToPress))      //possible change to specific key or button to start game
             {
                 hasStarted = true;
+                audioSource.Play();
             }
         }
     }
