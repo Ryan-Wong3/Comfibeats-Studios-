@@ -98,19 +98,24 @@ public class Note : MonoBehaviour
         if (distance < breakingDistance && flashed == false)
         {
             //flash UI element
-            //StartCoroutine(Flash());
+            StartCoroutine(Flash());
+            canInteract = true;
+            /*
             if(NoteSpawner.Instance.timer > GameManager.Instance.noteInterval && distance > 1.5)
             {
                 GameManager.Instance.flashCounter++;
                 canInteract = false;
-
+                
                 if(GameManager.Instance.flashCounter == 3)
                 {
                     canInteract = true;
                     StartCoroutine(Flash());
                     GameManager.Instance.flashCounter = 0;
                 }
+                
             }
+            */
+
         }
 
         if (canInteract)

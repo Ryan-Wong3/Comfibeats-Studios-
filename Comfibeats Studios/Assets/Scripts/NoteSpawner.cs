@@ -50,6 +50,7 @@ public class NoteSpawner : MonoBehaviour
         {
             if (timer > GameManager.Instance.noteInterval)
             {
+                
                 // old code to test spawning in 4 different prefab
                 int randomIndex = Random.Range(0, notes.Length);
                 GameObject notePrefab = notes[randomIndex]; //make new object with random prefab 
@@ -65,15 +66,16 @@ public class NoteSpawner : MonoBehaviour
                         textMeshProComponent = notePrefab.transform.Find("2 Note/Note 0.789 Variant (1)/Fill Area/Note Text").GetComponentInChildren<TextMeshProUGUI>();
                         textMeshProComponent.SetText(fileLines[listIndex]);
                         textMeshProComponent = notePrefab.transform.Find("2 Note/Note 0.789 Variant/Fill Area/Note Text").GetComponentInChildren<TextMeshProUGUI>();
-                        textMeshProComponent.SetText("aaa");
+                        textMeshProComponent.SetText("");
                         break;
                 }
-
+                
+                
                 /*
                 //create duplicate gameobject and sets text to what is in list
                 GameObject textObject = Instantiate(recallTextObject);
                 //TextMeshPro textMeshProComponent = textObject.GetComponent<TextMeshPro>();
-                TextMeshProUGUI textMeshProComponent = textObject.transform.Find("Note/Fill Area/Note Text").GetComponentInChildren<TextMeshProUGUI>();
+                TextMeshProUGUI textMeshProComponent = textObject.transform.Find("2 Note/Note 0.789 Variant (1)/Fill Area/Note Text").GetComponentInChildren<TextMeshProUGUI>();
                 textMeshProComponent.SetText(fileLines[listIndex]);
                 */
                 
