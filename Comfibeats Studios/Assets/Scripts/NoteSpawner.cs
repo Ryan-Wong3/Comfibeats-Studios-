@@ -8,8 +8,10 @@ using TMPro;
 
 public class NoteSpawner : MonoBehaviour
 {
+    public static NoteSpawner Instance; // Singleton
+
     [SerializeField]
-    private float timer = 0;
+    public float timer = 0;
     public float xPos;
 
     public GameObject[] notes;
@@ -19,9 +21,17 @@ public class NoteSpawner : MonoBehaviour
     public int listIndex = 0;
     public GameObject recallTextObject;
 
-
     void Start()
     {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         /*  //testing purposes
         GameObject newNote = Instantiate(note);
         newNote.transform.position = transform.position + new Vector3(Random.Range(-x, x), 0, 0);
