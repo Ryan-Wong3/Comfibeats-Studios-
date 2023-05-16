@@ -47,6 +47,8 @@ public class Note : MonoBehaviour
     private bool flashed = false;
     private bool earlyCheck = false;
     private bool missCheck = false;
+    [SerializeField]
+    private bool twoNote = false;
 
     [Header("Slider")]
     [SerializeField]

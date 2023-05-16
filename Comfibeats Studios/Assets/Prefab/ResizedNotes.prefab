@@ -402,9 +402,14 @@ MonoBehaviour:
   noteTime: 5
   perfectFrontTime: 0
   perfectEndTime: 0
+  perfectScore: 0
+  earlyScore: 0
+  lateScore: 0
+  missScore: 0
   marker: {fileID: 0}
   tracker: {fileID: 0}
   breakingDistance: 2.5
+  twoNote: 0
   slider: {fileID: 6637605904746830642}
   sliderSpeed: 5
   imageSlider: {fileID: 6637605905395173631}
@@ -424,7 +429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceBetweenNotes: 1
-  hasStarted: 0
   timer: 0
 --- !u!1 &6637605905239135895
 GameObject:
@@ -1093,7 +1097,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6637605906141546716
 MonoBehaviour:
   m_ObjectHideFlags: 0
