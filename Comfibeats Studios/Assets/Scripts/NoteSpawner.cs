@@ -83,9 +83,19 @@ public class NoteSpawner : MonoBehaviour
                 //textObject.transform.position = transform.position + new Vector3(xPos, 0, 0);
 
                 //repeat last line if at end of txt 
+                /*
                 if (fileLines.Count - 1 > listIndex)
                 {
                     listIndex++;
+                }
+                */
+                if(fileLines.Count - 1 > listIndex) //increment if not at end yet
+                {
+                    listIndex++;
+                }
+                else
+                {
+                    listIndex = 0;
                 }
                 timer = 0;
             }

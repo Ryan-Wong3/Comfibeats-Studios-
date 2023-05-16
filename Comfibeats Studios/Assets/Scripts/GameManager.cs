@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     //for music 
     public AudioSource audioSource;
+    public float songLength;
 
     public int flashCounter = 0;
 
@@ -37,19 +38,8 @@ public class GameManager : MonoBehaviour
         noteInterval = 60f / bpm;
         
         audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!hasStarted)
-        {
-            if (Input.GetKeyDown(keyToPress))      //possible change to specific key or button to start game
-            {
-                hasStarted = true;
-                audioSource.Play();
-            }
-        }
+        songLength = audioSource.clip.length;
+        audioSource.Play();
     }
 
 }
