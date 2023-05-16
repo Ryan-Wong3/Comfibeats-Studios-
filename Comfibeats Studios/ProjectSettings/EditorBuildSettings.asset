@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/main menu.unity
     guid: 86d755d86752245449cbee3476525ab5
+  - enabled: 1
+    path: Assets/Scenes/level select.unity
+    guid: e9db20e58fef46f499df27f8ab7f7031
   - enabled: 1
     path: Assets/Scenes/Gameplay2.unity
     guid: ed834ad80ee48d246aa7344c0c74bfde
   - enabled: 1
-    path: Assets/Scenes/level select.unity
-    guid: e9db20e58fef46f499df27f8ab7f7031
+    path: Assets/Scenes/DarkMode.unity
+    guid: 79c2472e4f8e21542a35d98b09d6501c
   m_configObjects: {}
