@@ -134,6 +134,10 @@ MonoBehaviour:
   noteTime: 5
   perfectFrontTime: 1.2
   perfectEndTime: 4.7
+  perfectScore: 0
+  earlyScore: 0
+  lateScore: 0
+  missScore: 0
   marker: {fileID: 0}
   tracker: {fileID: 0}
   breakingDistance: 2.5
@@ -156,7 +160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceBetweenNotes: 1
-  hasStarted: 0
   timer: 0
 --- !u!1 &5321729664315236225
 GameObject:

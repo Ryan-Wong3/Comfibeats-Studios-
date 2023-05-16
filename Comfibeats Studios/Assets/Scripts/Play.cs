@@ -20,4 +20,9 @@ public class Play : MonoBehaviour
     {
         SceneManager.LoadScene("Gameplay2");
     }
+
+    public void Level2()
+    {
+        SceneManager.LoadScene("DarkMode");
+    }
 }

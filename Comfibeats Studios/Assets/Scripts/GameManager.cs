@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     //Set key to press
     public KeyCode keyToPress;
-    public bool hasStarted;
+    public bool hasStarted = false;
 
     public float bpm;
     [Header("for calculation purpose do not touch")]
@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     //for music 
     public AudioSource audioSource;
+
+    public int flashCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        hasStarted = false; //track gamestate
+        hasStarted = true; //track gamestate
 
         noteInterval = 60f / bpm;
         
@@ -49,4 +51,5 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 }
