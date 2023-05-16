@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     //for music 
     public AudioSource audioSource;
 
+    public int flashCounter = 0;
+    public int restCounter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,4 +52,5 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 }
